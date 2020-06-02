@@ -6,7 +6,7 @@
     <h1>Pizza Orders</h1>
     @foreach($pizzas as $pizza)
         <h4>
-            <a href="/pizzas/{{ $pizza->id }}">
+            <a href="{{ route('pizzas.show', $pizza) }}">
                 {{$pizza->name}}
             </a>
         </h4>

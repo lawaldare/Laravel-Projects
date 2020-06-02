@@ -12,24 +12,22 @@ class PizzaController extends Controller
 
     public function index()
     {
+        
+        //smh
 
         // $pizzas = Pizza::all();
         // $pizzas = Pizza::orderBy('name')->get();
         // $pizzas = Pizza::where('type','hawaiian')->get();
+        
         $pizzas = Pizza::latest()->get();
 
-        return view('pizzas.index', [
-            'pizzas' => $pizzas,
-        ]);
+        return view('pizzas.index', compact('pizzas'));
     }
 
 
-    public function show($id)
+    public function show(Pizza $pizza)
     {
-
-        $pizza = Pizza::findorFail($id);
-
-        return view('pizzas.show', ['pizza' => $pizza]);
+        return view('pizzas.show', compact('pizza'));
     }
 
     public function create()
@@ -37,26 +35,17 @@ class PizzaController extends Controller
         return view('pizzas.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        Pizza::create($request->all());
 
-        $pizza = new Pizza();
-
-        $pizza->name = request(('name'));
-        $pizza->type = request(('type'));
-        $pizza->base = request(('base'));
-        $pizza->toppings = request('toppings');
-
-        $pizza->save();
-
-        return redirect('/')->with('message', 'Thanks for your order');
+        return redirect()->route('pizzas.index')->with('message', 'Thanks for your order');
     }
 
-    public function destroy($id)
+    public function destroy(Pizza $pizza)
     {
-        $pizza = Pizza::findOrFail($id);
         $pizza->delete();
 
-        return redirect('/pizzas');
+        return redirect()->route('pizzas.index')->with('message', 'Pizza deleted');
     }
 }

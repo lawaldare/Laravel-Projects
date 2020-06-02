@@ -5,10 +5,10 @@
         <div class="wrapper create-pizza">
             <h1>Create a new Pizza</h1>
 
-            <form action="/pizzas" method="POST">
+            <form action="{{ route('pizzas.store') }}" method="POST">
             @csrf
                 <label for="name">Your name:</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="{{ old('name') }}">
                 <label for="type">Choose pizza type:</label>
                 <select name="type" id="type">
                     <option value="margarita">Margarita</option>

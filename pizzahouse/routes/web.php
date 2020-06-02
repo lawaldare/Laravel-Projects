@@ -22,13 +22,15 @@ Route::get('/', function () {
 
 Route::get('/pizzas', 'PizzaController@index')->middleware('auth');
 
-Route::get('/pizzas/create', 'PizzaController@create');
+Route::resource('pizzas', 'PizzaController');
 
-Route::post('/pizzas', 'PizzaController@store');
+// Route::get('/pizzas/create', 'PizzaController@create')->name('pizzas.create');
 
-Route::get('/pizzas/{id}', 'PizzaController@show')->middleware('auth');
+// Route::post('/pizzas', 'PizzaController@store');
 
-Route::delete('/pizzas/{id}', 'PizzaController@destroy')->middleware('auth');
+// Route::get('/pizzas/{id}', 'PizzaController@show')->middleware('auth');
+
+// Route::delete('/pizzas/{id}', 'PizzaController@destroy')->middleware('auth');
 
 Auth::routes([
     'register' => false
